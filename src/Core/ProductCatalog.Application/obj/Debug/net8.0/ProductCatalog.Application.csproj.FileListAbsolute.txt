@@ -1,0 +1,15 @@
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductCatalog.Application.csproj.AssemblyReference.cache
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductCatalog.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductCatalog.Application.AssemblyInfoInputs.cache
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductCatalog.Application.AssemblyInfo.cs
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductCatalog.Application.csproj.CoreCompileInputs.cache
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/bin/Debug/net8.0/ProductCatalog.Application.deps.json
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/bin/Debug/net8.0/ProductCatalog.Application.dll
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/bin/Debug/net8.0/ProductCatalog.Application.pdb
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/bin/Debug/net8.0/ProductCatalog.Domain.dll
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/bin/Debug/net8.0/ProductCatalog.Domain.pdb
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductC.224523BD.Up2Date
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductCatalog.Application.dll
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/refint/ProductCatalog.Application.dll
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ProductCatalog.Application.pdb
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductCatalog.CleanArchitecture/src/Core/ProductCatalog.Application/obj/Debug/net8.0/ref/ProductCatalog.Application.dll

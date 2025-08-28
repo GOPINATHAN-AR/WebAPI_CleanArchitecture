@@ -1,0 +1,17 @@
+using MediatR;
+using ProductCatalog.Application.Common.Models;
+using ProductCatalog.Application.Features.Products.DTOs;
+
+namespace ProductCatalog.Application.Features.Products.Commands;
+
+public record CreateProductCommand(CreateProductDto Product) : IRequest<Result<ProductDto>>;
+
+public record UpdateProductCommand(Guid Id, UpdateProductDto Product) : IRequest<Result<ProductDto>>;
+
+public record DeleteProductCommand(Guid Id) : IRequest<Result<bool>>;
+
+public record ActivateProductCommand(Guid Id) : IRequest<Result<ProductDto>>;
+
+public record DeactivateProductCommand(Guid Id) : IRequest<Result<ProductDto>>;
+
+public record UpdateProductStatusCommand(Guid Id, Domain.Entities.ProductStatus Status) : IRequest<Result<ProductDto>>;
