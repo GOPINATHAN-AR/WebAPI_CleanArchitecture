@@ -2,7 +2,6 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog.Application.Common.Behaviors;
 using ProductCatalog.Application.Common.Interfaces;
-using ProductCatalog.Application.Common.Mappings;
 using ProductCatalog.Application.Features.Products.Validators;
 using ProductCatalog.Infrastructure.Data;
 
@@ -18,9 +17,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Register DbContext as IApplicationDbContext
 builder.Services.AddScoped<IApplicationDbContext>(provider => 
     provider.GetRequiredService<ApplicationDbContext>());
-
-// Add AutoMapper
-builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add MediatR
 builder.Services.AddMediatR(cfg => 

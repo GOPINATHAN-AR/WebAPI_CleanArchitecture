@@ -1,7 +1,7 @@
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog.Application.Common.Interfaces;
+using ProductCatalog.Application.Common.Mappings;
 using ProductCatalog.Application.Common.Models;
 using ProductCatalog.Application.Features.Products.DTOs;
 using ProductCatalog.Application.Features.Products.Queries;
@@ -11,12 +11,10 @@ namespace ProductCatalog.Application.Features.Products.Handlers;
 public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Result<ProductDto>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public GetProductByIdQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetProductByIdQueryHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<ProductDto>> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
@@ -28,7 +26,7 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, R
             if (product == null)
                 return Result<ProductDto>.Failure("Product not found");
 
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = product.ToDto();
             return Result<ProductDto>.Success(productDto);
         }
         catch (Exception ex)
@@ -41,12 +39,10 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, R
 public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, Result<PagedResult<ProductDto>>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public GetAllProductsQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetAllProductsQueryHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<PagedResult<ProductDto>>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
@@ -62,7 +58,7 @@ public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, R
                 .Take(request.Pagination.PageSize)
                 .ToListAsync(cancellationToken);
 
-            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            var productDtos = products.Select(p => p.ToDto()).ToList();
 
             var pagedResult = new PagedResult<ProductDto>
             {
@@ -84,12 +80,10 @@ public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, R
 public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Result<PagedResult<ProductDto>>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public GetProductsQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetProductsQueryHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<PagedResult<ProductDto>>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
@@ -127,7 +121,7 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Result<
                 .Take(request.Pagination.PageSize)
                 .ToListAsync(cancellationToken);
 
-            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            var productDtos = products.Select(p => p.ToDto()).ToList();
 
             var pagedResult = new PagedResult<ProductDto>
             {
@@ -149,12 +143,10 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Result<
 public class SearchProductsQueryHandler : IRequestHandler<SearchProductsQuery, Result<PagedResult<ProductDto>>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public SearchProductsQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public SearchProductsQueryHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<PagedResult<ProductDto>>> Handle(SearchProductsQuery request, CancellationToken cancellationToken)
@@ -182,7 +174,7 @@ public class SearchProductsQueryHandler : IRequestHandler<SearchProductsQuery, R
                 .Take(request.Pagination.PageSize)
                 .ToListAsync(cancellationToken);
 
-            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            var productDtos = products.Select(p => p.ToDto()).ToList();
 
             var pagedResult = new PagedResult<ProductDto>
             {
