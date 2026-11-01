@@ -1,7 +1,7 @@
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog.Application.Common.Interfaces;
+using ProductCatalog.Application.Common.Mappings;
 using ProductCatalog.Application.Common.Models;
 using ProductCatalog.Application.Features.Products.Commands;
 using ProductCatalog.Application.Features.Products.DTOs;
@@ -12,12 +12,10 @@ namespace ProductCatalog.Application.Features.Products.Handlers;
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result<ProductDto>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public CreateProductCommandHandler(IApplicationDbContext context, IMapper mapper)
+    public CreateProductCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<ProductDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -45,7 +43,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             _context.Products.Add(product);
             await _context.SaveChangesAsync(cancellationToken);
 
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = product.ToDto();
             return Result<ProductDto>.Success(productDto);
         }
         catch (Exception ex)
@@ -88,12 +86,10 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
 public class UpdateProductStatusCommandHandler : IRequestHandler<UpdateProductStatusCommand, Result<ProductDto>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public UpdateProductStatusCommandHandler(IApplicationDbContext context, IMapper mapper)
+    public UpdateProductStatusCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<ProductDto>> Handle(UpdateProductStatusCommand request, CancellationToken cancellationToken)
@@ -110,7 +106,7 @@ public class UpdateProductStatusCommandHandler : IRequestHandler<UpdateProductSt
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = product.ToDto();
             return Result<ProductDto>.Success(productDto);
         }
         catch (Exception ex)
@@ -123,12 +119,10 @@ public class UpdateProductStatusCommandHandler : IRequestHandler<UpdateProductSt
 public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Result<ProductDto>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public UpdateProductCommandHandler(IApplicationDbContext context, IMapper mapper)
+    public UpdateProductCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<ProductDto>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
@@ -154,7 +148,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = product.ToDto();
             return Result<ProductDto>.Success(productDto);
         }
         catch (Exception ex)
@@ -167,12 +161,10 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 public class ActivateProductCommandHandler : IRequestHandler<ActivateProductCommand, Result<ProductDto>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public ActivateProductCommandHandler(IApplicationDbContext context, IMapper mapper)
+    public ActivateProductCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<ProductDto>> Handle(ActivateProductCommand request, CancellationToken cancellationToken)
@@ -189,7 +181,7 @@ public class ActivateProductCommandHandler : IRequestHandler<ActivateProductComm
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = product.ToDto();
             return Result<ProductDto>.Success(productDto);
         }
         catch (Exception ex)
@@ -202,12 +194,10 @@ public class ActivateProductCommandHandler : IRequestHandler<ActivateProductComm
 public class DeactivateProductCommandHandler : IRequestHandler<DeactivateProductCommand, Result<ProductDto>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public DeactivateProductCommandHandler(IApplicationDbContext context, IMapper mapper)
+    public DeactivateProductCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<Result<ProductDto>> Handle(DeactivateProductCommand request, CancellationToken cancellationToken)
@@ -224,7 +214,7 @@ public class DeactivateProductCommandHandler : IRequestHandler<DeactivateProduct
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = product.ToDto();
             return Result<ProductDto>.Success(productDto);
         }
         catch (Exception ex)
