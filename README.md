@@ -8,7 +8,7 @@ The solution follows Clean Architecture principles with the following layers:
 
 ### Core Layer
 #### Domain (`ProductCatalog.Domain`)
-- **Entities**: Core business entities (Product, Category, ProductCategory)
+- **Entities**: Core business entities (Product, Category, ProductCategory). Only Product is exposed through the API
 - **Enums**: Product status enumeration
 - **Common**: Base entities and shared types
 
@@ -27,25 +27,23 @@ The solution follows Clean Architecture principles with the following layers:
 
 ## Key Clean Architecture Concepts Implemented
 
-1. **Dependency Inversion**: Core layers don't depend on outer layers
+1. **Dependency Inversion**: Domain and Application don't reference the Infrastructure or API projects. Application reaches the database through `IApplicationDbContext`, which uses EF Core types
 2. **Separation of Concerns**: Each layer has distinct responsibilities
 3. **Feature-based Organization**: Code organized by business features
 4. **CQRS**: Commands and queries are separated
 5. **Result Pattern**: Consistent error handling across the application
 6. **Pagination**: Built-in pagination support for list operations
-7. **AutoMapper**: Object-to-object mapping
-8. **FluentValidation**: Comprehensive input validation
+7. **Explicit Mapping**: Hand-written entity-to-DTO mapping
+8. **FluentValidation**: Validators run on every request through a MediatR pipeline behavior
 
 ## Features
 
 - Complete CRUD operations for products
-- Advanced filtering and search capabilities
+- Filtering and search
 - Pagination support for all list operations
 - Product status management (Draft, Published, OutOfStock, Discontinued)
 - Product activation/deactivation
-- Category management with hierarchical support
-- Comprehensive validation rules
-- AutoMapper for DTO mappings
+- Validation on create and update, with a 400 response listing the errors per field
 - In-memory database for development
 - Swagger documentation
 
@@ -60,7 +58,8 @@ The solution follows Clean Architecture principles with the following layers:
 - `PUT /api/products/{id}` - Update product
 - `PATCH /api/products/{id}/activate` - Activate product
 - `PATCH /api/products/{id}/deactivate` - Deactivate product
-- `PATCH /api/products/{id}/status` - Update product status
+- `PATCH /api/products/{id}/status` - Update product status (the body is the bare status number, e.g. `1`)
+- `DELETE /api/products/{id}` - Delete product
 
 ## Running the Application
 
@@ -69,16 +68,18 @@ The solution follows Clean Architecture principles with the following layers:
    cd src/Presentation/ProductCatalog.API
    ```
 
-2. Run the application:
+2. Run the application in the Development environment, which is what enables Swagger:
    ```bash
-   dotnet run
+   dotnet run -- --environment Development
    ```
 
-3. Access Swagger UI at: `https://localhost:5001/swagger`
+3. Access Swagger UI at: `http://localhost:5000/swagger`
 
 ## Sample Request Bodies
 
 ### Create Product
+Each object below is a separate example. Send one per request.
+
 ```json
 {
   "name": "Smartphone",
@@ -193,6 +194,17 @@ The solution follows Clean Architecture principles with the following layers:
 ?pageNumber=1&pageSize=10
 ```
 
+## Validation Errors
+
+Invalid requests return `400 Bad Request` with one entry per failed rule:
+
+```json
+[
+  "Price: Product price must be greater than zero",
+  "Currency: Currency must be 3 characters long"
+]
+```
+
 ## Product Status Values
 - `0` - Draft
 - `1` - Published
@@ -201,9 +213,9 @@ The solution follows Clean Architecture principles with the following layers:
 
 ## Architecture Benefits
 
-1. **Testability**: Each layer can be tested independently
+1. **Testability**: The layers are separated so they can be tested independently (no tests are written yet)
 2. **Maintainability**: Clear separation of concerns makes code easier to maintain
-3. **Flexibility**: Easy to swap out infrastructure components
+3. **Flexibility**: Infrastructure sits behind an interface, and the database provider is set in one place in `Program.cs`
 4. **Scalability**: Feature-based organization supports team scaling
 5. **Reusability**: Core business logic can be reused across different presentation layers
 
@@ -216,7 +228,7 @@ dotnet build
 
 ## Testing
 
-The API uses an in-memory database, so data will be reset on each application restart. In a production environment, you would configure a persistent database in the connection string.
+The solution has no automated tests yet. The API uses an in-memory database, set in `Program.cs`, so data is reset on each application restart. There is no connection string; using a persistent database means adding an EF Core provider and replacing `UseInMemoryDatabase`.
 
 ## Future Enhancements
 
